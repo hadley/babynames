@@ -1,0 +1,9 @@
+Package: babynames
+Title: US baby names 1880-2013
+Version: 0.1
+Authors@R: 'Hadley Wickham <h.wickham@gmail.com> [aut,cre]'
+Description: US baby names provided by the SSA. This package contains all
+  names used for at least 5 children of either sex.
+Depends: R (>= 3.1.0)
+License: CC0
+LazyData: true

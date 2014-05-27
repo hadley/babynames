@@ -15,8 +15,8 @@ if (!file.exists("data-raw/names")) {
 all <- dir("data-raw/names", "\\.txt$", full.names = TRUE)
 year <- as.numeric(gsub("[^0-9]", "", basename(all)))
 
-data <- lapply(all, read.csv, 
-  colClasses = c("character", "character", "integer"), 
+data <- lapply(all, read.csv,
+  colClasses = c("character", "character", "integer"),
   header = FALSE
 )
 
@@ -24,11 +24,11 @@ one <- dplyr::rbind_all(data)
 names(one) <- c("name", "sex", "n")
 one$year <- rep(year, vapply(data, nrow, integer(1)))
 
-babynames <- one %>% 
+babynames <- one %>%
   select(year, sex, name, n) %>%
   arrange(year, sex, desc(n)) %>%
   left_join(applicants) %>%
   mutate(prop = n / n_all) %>%
   select(-n_all)
 
-save(babynames, file = "data/names.rdata")
+save(babynames, file = "data/names.rdata", compress = "xz")

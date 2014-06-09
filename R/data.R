@@ -27,3 +27,10 @@
 #'   \code{dx}, \code{Lx}, \code{Tx}, \code{ex}, \code{sex}, \code{year}
 #'
 "lifetables"
+
+#' Births
+#'
+#' Live births data from census.gov.
+#'
+#' @format A data frame with thirteen variables
+"births"

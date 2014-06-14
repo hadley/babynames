@@ -25,6 +25,7 @@ names(one) <- c("name", "sex", "n")
 one$year <- rep(year, vapply(data, nrow, integer(1)))
 
 babynames <- one %>%
+  tbl_df() %>%
   select(year, sex, name, n) %>%
   arrange(year, sex, desc(n)) %>%
   left_join(applicants) %>%

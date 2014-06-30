@@ -1,22 +1,24 @@
-# Source: www.census.gov/statab/hist/02HS0013.xls
-downloader::download(
-  'http://www.census.gov/statab/hist/02HS0013.xls',
-  'data-raw/02HS0013.xls'
-)
 library(gdata)
-dat = read.xls(
-  'data-raw/02HS0013.xls', sheet = 1, skip = 9,
-  stringsAsFactors = F
+library(dplyr)
+library(tidyr)
+
+# 1909 - 2001
+# Source: www.census.gov/statab/hist/02HS0013.xls
+raw <- read.csv('data-raw/02HS0013.csv', skip = 15, stringsAsFactors = FALSE, header = FALSE)
+births <- raw %>%
+  tbl_df() %>%
+  select(year = V1, births = V2) %>%
+  mutate(births = extract_numeric(births) * 1e3, year = extract_numeric(year)) %>%
+  filter(!is.na(births), !is.na(year))
+
+# 2002 - 2012 Manually extracted from
+# http://www.cdc.gov/nchs/data/nvsr/nvsr62/nvsr62_09.pdf, page 49
+recent <- data.frame(
+  year = 2002:2012,
+  births = c(4021726, 4089950, 4112052, 4138349, 4265555, 4316233, 4247694,
+    4130665, 3999386, 3953590, 3952841)
 )
-keep = !grepl("^X\\.", names(dat))
-total_births = dat[1:102,keep]
 
-names(births) = c('year', 'total_births', 'total_deaths', 'infant_deaths', 'birth_rate', 'total_death_rate', 'infant_death_rate', 'maternal_death_rate', 'tuberculosis_death_rate', 'malignant_neoplasma_death_rate',
- 'cardiovascular_renal_death_rate', 'influenza_pneumonia_death_rate',
- "vehicle_accident_death_rate"
-)
-
-births[] = sapply(births, function(x) as.numeric(sub(',', "", x)))
-
+births <- births %>% rbind(recent)
 
 save(births, file = 'data/births.rdata', compress = 'xz')

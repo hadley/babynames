@@ -32,5 +32,8 @@
 #'
 #' Live births data from census.gov.
 #'
-#' @format A data frame with thirteen variables
+#' @format A data frame:
+#' \describe{
+#' \item{year}{Year}
+#' \item{births}{Number of live births, rounded to nearest 1000}}
 "births"

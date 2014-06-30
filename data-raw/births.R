@@ -19,6 +19,6 @@ recent <- data.frame(
     4130665, 3999386, 3953590, 3952841)
 )
 
-births <- births %>% rbind(recent)
+births <- births %>% rbind(recent) %>% mutate(year = as.integer(year))
 
 save(births, file = 'data/births.rdata', compress = 'xz')

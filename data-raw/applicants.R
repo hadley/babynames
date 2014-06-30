@@ -15,8 +15,7 @@ ssa$F <- as.integer(gsub(",", "", ssa$F))
 
 applicants <- ssa %>%
   tbl_df() %>%
-  gather(sex, n_all, M:F) %>%
-  mutate(sex = as.character(sex)) %>%
-  arrange(year, sex)
+  gather(sex, applicants, M:F) %>%
+  mutate(sex = as.character(sex))
 
 save(applicants, file = "data/applicants.rdata")

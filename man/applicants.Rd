@@ -4,7 +4,7 @@
 \alias{applicants}
 \title{Applicants.}
 \format{A data frame with 3 variables: \code{year}, \code{sex} and
-  \code{n_all}}
+  \code{applicants}}
 \usage{
 applicants
 }

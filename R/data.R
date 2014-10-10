@@ -16,5 +16,24 @@
 #' get an SSN at birth.
 #'
 #' @format A data frame with 3 variables: \code{year}, \code{sex} and
-#'   \code{n_all}
+#'   \code{applicants}
 "applicants"
+
+#' Lifetables
+#'
+#' Cohort life tables data as provided by SSA.
+#'
+#' @format A data frame with nine variables: \code{x}, \code{qx}, \code{lx},
+#'   \code{dx}, \code{Lx}, \code{Tx}, \code{ex}, \code{sex}, \code{year}
+#'
+"lifetables"
+
+#' Births
+#'
+#' Live births data from census.gov.
+#'
+#' @format A data frame:
+#' \describe{
+#' \item{year}{Year}
+#' \item{births}{Number of live births, rounded to nearest 1000}}
+"births"

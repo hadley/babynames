@@ -2,7 +2,7 @@
 
 library(dplyr, warn.conflicts = FALSE)
 library(XML)
-library(reshape2)
+library(tidyr)
 
 ssa <- readHTMLTable("http://www.ssa.gov/oact/babynames/numberUSbirths.html")[[2]]
 names(ssa) <- c("year", "M", "F", "total")
@@ -14,10 +14,8 @@ ssa$M <- as.integer(gsub(",", "", ssa$M))
 ssa$F <- as.integer(gsub(",", "", ssa$F))
 
 applicants <- ssa %>%
-  melt(id = "year") %>%
   tbl_df() %>%
-  select(year, sex = variable, n_all = value) %>%
-  mutate(sex = as.character(sex)) %>%
-  arrange(year, sex)
+  gather(sex, applicants, M:F) %>%
+  mutate(sex = as.character(sex))
 
 save(applicants, file = "data/applicants.rdata")

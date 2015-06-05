@@ -29,7 +29,7 @@ babynames <- one %>%
   select(year, sex, name, n) %>%
   arrange(year, sex, desc(n)) %>%
   left_join(applicants) %>%
-  mutate(prop = n / n_all) %>%
-  select(-n_all)
+  mutate(prop = n / applicants) %>%
+  select(-applicants)
 
 save(babynames, file = "data/names.rdata", compress = "xz")

@@ -1,5 +1,7 @@
 # babynames
 
+[![Travis-CI Build Status](https://travis-ci.org/hadley/babynames.svg?branch=master)](https://travis-ci.org/hadley/babynames)
+
 This package contains two datasets provided by the USA social security administration:
 
 * `babynames`: For each year from 1880 to 2013, the number of children of 

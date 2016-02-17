@@ -1,6 +1,6 @@
 Package: babynames
 Title: US baby names 1880-2013
-Version: 0.1
+Version: 0.1.0.9000
 Authors@R: 'Hadley Wickham <h.wickham@gmail.com> [aut,cre]'
 Description: US baby names provided by the SSA. This package contains all
     names used for at least 5 children of either sex.

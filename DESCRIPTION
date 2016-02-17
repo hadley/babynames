@@ -9,3 +9,4 @@ Depends:
 License: CC0
 LazyData: true
 URL: http://github.com/hadley/babynames
+RoxygenNote: 5.0.1

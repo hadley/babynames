@@ -5,14 +5,16 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 2 notes
+
+* I've updated my maintainer email address to hadley@rstudio.com
 
 * Checking installed package size:
   installed size is  8.7Mb
   sub-directories of 1Mb or more:
     data   8.6Mb
 
-  This is a data package that will be rarely (if ever) updated.
+  This is a data package that will be rarely.
 
 ## Reverse dependencies
 

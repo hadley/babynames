@@ -1,6 +1,6 @@
 Package: babynames
 Title: US Baby Names 1880-2014
-Version: 0.2.1
+Version: 0.2.1.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("RStudio", role = "cph")

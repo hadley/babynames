@@ -4,7 +4,7 @@
 
 This package contains three datasets provided by the USA social security administration:
 
-* `babynames`: For each year from 1880 to 2013, the number of children of 
+* `babynames`: For each year from 1880 to 2014, the number of children of 
   each sex given each name. All names with more than 5 uses are given.
   (Source: http://www.ssa.gov/oact/babynames/limits.html)
 

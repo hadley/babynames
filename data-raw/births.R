@@ -12,12 +12,12 @@ births <- raw %>%
   mutate(births = parse_number(births) * 1e3, year = parse_number(year)) %>%
   filter(!is.na(births), !is.na(year))
 
-# 2002 - 2014 Manually extracted from
-# https://www.cdc.gov/nchs/data/nvsr/nvsr64/nvsr64_12.pdf, page 51
+# 2002 - 2015 manually extracted from
+# https://www.cdc.gov/nchs/data/nvsr/nvsr66/nvsr66_01.pdf
 recent <- data.frame(
-  year = 2002:2014,
+  year = 2002:2015,
   births = c(4021726, 4089950, 4112052, 4138349, 4265555, 4316233, 4247694,
-    4130665, 3999386, 3953590, 3952841, 3932181, 3988076)
+    4130665, 3999386, 3953590, 3952841, 3932181, 3988076, 3978497)
 )
 
 births <- births %>% rbind(recent) %>% mutate(year = as.integer(year))

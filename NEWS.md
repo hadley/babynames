@@ -1,4 +1,4 @@
-# babynames 0.2.1.9000
+# babynames 0.3.0
 
 * Update data for 2015 (@stillmatic, #16)
 

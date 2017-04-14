@@ -1,6 +1,4 @@
-library(readr)
-library(dplyr)
-library(tidyr)
+library(tidyverse)
 
 # 1909 - 2001
 # Source: www.census.gov/statab/hist/02HS0013.xls
@@ -45,5 +43,5 @@ births <- births %>%
     births = as.integer(births)
   )
 
-write_csv(births, "births.csv")
+write_csv(births, "data-raw/births.csv")
 devtools::use_data(births, overwrite = TRUE, compress = 'xz')

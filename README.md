@@ -19,7 +19,7 @@ It also includes the following data set from the US Census:
 
 * `births`: Number of live births by year.
   (Source: http://www.census.gov/statab/hist/02HS0013.xls and
-  http://www.cdc.gov/nchs/data/nvsr/nvsr62/nvsr62_09.pdf)
+  https://www.cdc.gov/nchs/data/nvsr/nvsr66/nvsr66_01.pdf)
 
 Install it from github with:
   

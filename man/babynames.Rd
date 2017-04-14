@@ -15,4 +15,3 @@ Full baby name data provided by the SSA. This includes all names with at
 least 5 uses.
 }
 \keyword{datasets}
-

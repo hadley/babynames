@@ -13,4 +13,4 @@ License: CC0
 LazyData: true
 URL: http://github.com/hadley/babynames
 BugReports: https://github.com/hadley/babynames/issues
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

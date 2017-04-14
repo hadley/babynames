@@ -25,4 +25,3 @@ lifetables
 Cohort life tables data as provided by SSA.
 }
 \keyword{datasets}
-

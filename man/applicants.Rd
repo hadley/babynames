@@ -16,4 +16,3 @@ an income. In 1986, the law changed effectively requiring all children to
 get an SSN at birth.
 }
 \keyword{datasets}
-

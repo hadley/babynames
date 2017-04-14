@@ -15,4 +15,3 @@ births
 Live births data from census.gov.
 }
 \keyword{datasets}
-

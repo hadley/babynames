@@ -1,14 +1,17 @@
-library(gdata)
+library(readr)
 library(dplyr)
 library(tidyr)
 
 # 1909 - 2001
 # Source: www.census.gov/statab/hist/02HS0013.xls
-raw <- read.csv('data-raw/02HS0013.csv', skip = 15, stringsAsFactors = FALSE, header = FALSE)
+raw <- read_excel('data-raw/02HS0013.xls',
+  skip = 15,
+  col_names = FALSE,
+  na = "(NA)"
+)
 births <- raw %>%
-  tbl_df() %>%
-  select(year = V1, births = V2) %>%
-  mutate(births = extract_numeric(births) * 1e3, year = extract_numeric(year)) %>%
+  select(year = X__1, births = X__2) %>%
+  mutate(births = parse_number(births) * 1e3) %>%
   filter(!is.na(births), !is.na(year))
 
 # 2002 - 2012 Manually extracted from

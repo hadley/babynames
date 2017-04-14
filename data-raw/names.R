@@ -1,6 +1,8 @@
 library(dplyr)
 library(reshape2)
-library(readr2)
+library(readr)
+
+load('../data/applicants.rda')
 
 if (!file.exists("data-raw/names")) {
   tmp <- tempfile(fileext = ".zip")
@@ -27,4 +29,4 @@ babynames <- one %>%
   mutate(prop = n / n_all) %>%
   select(-n_all)
 
-devtools::use_data(babynames, compress = "xz")
+devtools::use_data(babynames, compress = "xz", overwrite=TRUE)

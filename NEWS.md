@@ -1,5 +1,7 @@
 # babynames 0.2.1.9000
 
+* Update data for 2015 (@stillmatic, #16)
+
 * Import from tibble in order to get consistent behaviour regardless of 
   whether or not tibble is attached.
 

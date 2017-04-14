@@ -3,3 +3,4 @@
 ^data-raw$
 ^cran-comments\.md$
 ^\.travis\.yml$
+^revdep$

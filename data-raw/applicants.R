@@ -16,7 +16,8 @@ ssa$F <- parse_number(ssa$F)
 
 applicants <- ssa %>%
   gather(sex, n_all, M:F) %>%
-  arrange(year, sex)
+  arrange(year, sex) %>%
+  mutate(n_all = as.integer(n_all))
 
 write_csv(applicants, "data-raw/applicants.csv")
 devtools::use_data(applicants, overwrite = TRUE)

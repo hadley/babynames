@@ -9,6 +9,8 @@ Description: US baby names provided by the SSA. This package contains all
     names used for at least 5 children of either sex.
 Depends:
     R (>= 2.10)
+Imports:
+    tibble
 License: CC0
 LazyData: true
 URL: http://github.com/hadley/babynames

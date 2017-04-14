@@ -1,3 +1,6 @@
+#' @importFrom tibble tibble
+NULL
+
 #' Baby names.
 #'
 #' Full baby name data provided by the SSA. This includes all names with at

@@ -33,7 +33,8 @@ recent <- tribble(
   2012,  3952841,
   2013,  3932181,
   2014,  3988076,
-  2015,  3978497
+  2015,  3978497,
+  2016,  3945875 # https://www.cdc.gov/nchs/data/nvsr/nvsr67/nvsr67_01.pdf, p.2 and throughout
 )
 
 births <- births %>%

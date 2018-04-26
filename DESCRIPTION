@@ -1,5 +1,5 @@
 Package: babynames
-Title: US Baby Names 1880-2015
+Title: US Baby Names 1880-2016
 Version: 0.3.0
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),

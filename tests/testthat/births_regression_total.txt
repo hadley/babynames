@@ -1,0 +1,4 @@
+# A tibble: 1 x 1
+  total_births
+         <int>
+1    314256000

@@ -1,0 +1,9 @@
+# A tibble: 6 x 5
+   year sex   name        n      prop
+  <dbl> <chr> <chr>   <int>     <dbl>
+1  1880 F     Abbie      71 0.000727 
+2  1880 F     Abby        6 0.0000615
+3  1880 F     Abigail    12 0.000123 
+4  1880 F     Ada       652 0.00668  
+5  1880 F     Adah       24 0.000246 
+6  1880 F     Adaline    23 0.000236 

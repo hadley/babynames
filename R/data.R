@@ -62,9 +62,14 @@ NULL
 #' @param x
 #'
 #' @return data.frame
+#' @importFrom("utils", "head", "tail")
 first_last <- function(x) {
-  bind_rows(
-    head(x, n = 10),
-    tail(x, n = 10)
-  )
+  if (require("dplyr")) {
+    bind_rows(
+      head(x, n = 10),
+      tail(x, n = 10)
+    )
+  } else {
+    stop("This internal function, intended only for the test suite requires {dplyr}")
+  }
 }

@@ -1,4 +1,4 @@
-# babynames 0.3.1
+# babynames 0.3.0.9000
 
 * Add data validity/regression tests (@russellpierce, #27)
 

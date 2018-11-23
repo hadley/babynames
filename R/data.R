@@ -53,23 +53,3 @@ NULL
 #' \item{year}{Year}
 #' \item{births}{Number of live births, rounded to nearest 1000}}
 "births"
-
-
-#' Return the head and tail of a data.freame
-#'
-#' For the purposes of DRY testing only.  Do not export.
-#'
-#' @param x
-#'
-#' @return data.frame
-#' @importFrom("utils", "head", "tail")
-first_last <- function(x) {
-  if (require("dplyr")) {
-    bind_rows(
-      head(x, n = 10),
-      tail(x, n = 10)
-    )
-  } else {
-    stop("This internal function, intended only for the test suite requires {dplyr}")
-  }
-}

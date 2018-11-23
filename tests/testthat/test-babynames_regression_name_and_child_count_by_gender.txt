@@ -1,5 +1,0 @@
-# A tibble: 2 x 3
-  sex   total_names total_children
-  <chr>       <int>          <int>
-1 F           65658      168861581
-2 M           39728      171990331

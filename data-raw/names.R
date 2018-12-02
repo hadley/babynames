@@ -26,6 +26,8 @@ babynames <- one %>%
   left_join(applicants, by = c("year", "sex")) %>%
   mutate(prop = n / n_all) %>%
   select(-n_all) %>%
-  arrange(year, sex, desc(n))
+  arrange(year, sex, desc(n)) %>%
+  # avoid a data-type change between package versions
+  mutate(n = as.integer(n))
 
 usethis::use_data(babynames, compress = "xz", overwrite = T)

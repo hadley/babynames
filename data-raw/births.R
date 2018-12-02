@@ -23,7 +23,8 @@ births <- raw %>%
 # http://www.cdc.gov/nchs/data/nvsr/nvsr62/nvsr62_09.pdf, page 50 (Table 21)
 # 2002 - 2015 manually extracted from
 # https://www.cdc.gov/nchs/data/nvsr/nvsr66/nvsr66_01.pdf
-
+# 2016 - 2017 manually extracted from
+# https://www.cdc.gov/nchs/data/nvsr/nvsr67/nvsr67_08-508.pdf, page 12 (Table 1)
 recent <- tribble(
   ~year, ~births,
   2002,  4021726,
@@ -39,7 +40,9 @@ recent <- tribble(
   2012,  3952841,
   2013,  3932181,
   2014,  3988076,
-  2015,  3978497
+  2015,  3978497,
+  2016,  3945875,
+  2017,  3855500
 )
 
 births <- births %>%

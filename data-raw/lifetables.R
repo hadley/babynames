@@ -13,12 +13,15 @@ get_lifetables <- function(year){
   dat <- rbind(tab_m, tab_f)
 
   dat <- filter(dat, x != "")
+  # Failed to skip lines when ingesting table
+  dat <- filter(dat, !grepl("Year of Birth", x))
   dat[-8] <- lapply(dat[-8], readr::parse_number)
-  dat <- filter(dat, x != year)
+
   dat$year <- year
   dat
 }
 
 years <- seq(1900, 2017, by = 10)
-lifetables <- tbl_df(bind_rows(lapply(years, get_lifetables)))
+lifetables <- tbl_df(bind_rows(lapply(years, get_lifetables))) %>%
+  arrange(year, sex, x)
 usethis::use_data(lifetables, compress = "xz", overwrite = T)

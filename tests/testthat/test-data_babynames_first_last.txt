@@ -1,6 +1,6 @@
 # A tibble: 20 x 5
     year sex   name          n       prop
-   <dbl> <chr> <chr>     <dbl>      <dbl>
+   <dbl> <chr> <chr>     <int>      <dbl>
  1  1880 F     Mary       7065 0.0724    
  2  1880 F     Anna       2604 0.0267    
  3  1880 F     Emma       2003 0.0205    

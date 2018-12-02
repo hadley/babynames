@@ -1,8 +1,14 @@
 library(tidyverse)
+library(readxl)
+library(usethis)
 
 # 1909 - 2001
-# Source: www.census.gov/statab/hist/02HS0013.xls
-raw <- read_excel('data-raw/02HS0013.xls',
+# Source: https://www2.census.gov/library/publications/2004/compendia/statab/123ed/hist/02HS0013.xls
+if (!file.exists("data-raw/02HS0013.xls")) {
+  download.file("https://www2.census.gov/library/publications/2004/compendia/statab/123ed/hist/02HS0013.xls", "data-raw/02HS0013.xls")
+}
+
+raw <- readxl::read_excel('data-raw/02HS0013.xls',
   range = "A16:B117",
   col_names = FALSE,
   na = "(NA)"
@@ -41,7 +47,8 @@ births <- births %>%
   mutate(
     year = as.integer(year),
     births = as.integer(births)
-  )
+  ) %>%
+  arrange(year)
 
 write_csv(births, "data-raw/births.csv")
-devtools::use_data(births, overwrite = TRUE, compress = 'xz')
+usethis::use_data(births, overwrite = TRUE, compress = 'xz')

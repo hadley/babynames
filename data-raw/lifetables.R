@@ -6,7 +6,7 @@ library(usethis)
 
 get_lifetables <- function(year){
   url <- "http://www.ssa.gov/oact/NOTES/as120/LifeTables_Tbl_7_%s.html"
-  tab <- xml2::read_html("http://www.ssa.gov/oact/NOTES/as120/LifeTables_Tbl_7_1900.html") %>% rvest::html_table(fill = TRUE) %>% {.[[2]]}
+  tab <- xml2::read_html(sprintf(url, year)) %>% rvest::html_table(fill = TRUE) %>% {.[[2]]}
   nms <- c("x", "qx", "lx", "dx", "Lx", "Tx", "ex", "sex")
   tab_m <- setNames(cbind(tab[-1,1:7], 'M'), nms)
   tab_f <- setNames(cbind(tab[-1,9:15], 'F'), nms)
@@ -24,4 +24,5 @@ get_lifetables <- function(year){
 years <- seq(1900, 2017, by = 10)
 lifetables <- tbl_df(bind_rows(lapply(years, get_lifetables))) %>%
   arrange(year, sex, x)
+readr::write_csv(lifetables[1:nrow(lifetables) %% 100 == 0,], "data-raw/lifetables_sample.csv")
 usethis::use_data(lifetables, compress = "xz", overwrite = T)

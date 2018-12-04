@@ -30,4 +30,5 @@ babynames <- one %>%
   # avoid a data-type change between package versions
   mutate(n = as.integer(n))
 
+readr::write_csv(babynames[1:nrow(babynames) %% 1000 == 0 & babynames$n > 1000,], "data-raw/babynames_sample.csv")
 usethis::use_data(babynames, compress = "xz", overwrite = T)

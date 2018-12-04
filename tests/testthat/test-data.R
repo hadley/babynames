@@ -41,7 +41,7 @@ test_that("lifetables head and tail", {
   )
 })
 
-test_that("lifetables head and tail of 1990s", {
+test_that("lifetables head and tail of 1990s; should not typically change", {
   expect_known_output(
     first_last(lifetables[lifetables$year == 1990,]),
     "test-data_lifetables_first_last_1990s.txt",

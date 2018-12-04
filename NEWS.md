@@ -1,7 +1,7 @@
 # babynames 0.3.0.9000
 
 * Add data validity/regression tests (@russellpierce, #27)
-* Update data for 2017 (@russellpierce #30)
+* Add data for 2016 and 2017. Minor changes to data from previous years to match external data sources. (@russellpierce #30)
 
 # babynames 0.3.0
 

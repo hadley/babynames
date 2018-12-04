@@ -56,3 +56,11 @@ test_that("babynames head and tail", {
     print = TRUE
   )
 })
+
+test_that("babynames head and tail of 1990; should not typically change", {
+  expect_known_output(
+    first_last(babynames[babynames$year == 1990,]),
+    "test-data_babynames_first_last_1990.txt",
+    print = TRUE
+  )
+})

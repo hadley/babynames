@@ -24,7 +24,7 @@ babynames <- one %>%
   select(year, sex, name, n) %>%
   arrange(year, sex, desc(n)) %>%
   left_join(applicants, by = c("year", "sex")) %>%
-  mutate(prop = n / n_all) %>%
+  mutate(prop = zapsmall(n / n_all)) %>%
   select(-n_all) %>%
   arrange(year, sex, desc(n)) %>%
   # avoid a data-type change between package versions

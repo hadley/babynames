@@ -15,7 +15,7 @@ get_lifetables <- function(year){
   dat <- filter(dat, x != "")
   # Failed to skip lines when ingesting table
   dat <- filter(dat, !grepl("Year of Birth", x))
-  dat[-8] <- lapply(dat[-8], readr::parse_number)
+  dat[-8] <- lapply(dat[-8], function (x) {zapsmall(readr::parse_number(x))})
 
   dat$year <- year
   dat

@@ -4,6 +4,7 @@ library(dplyr, warn.conflicts = FALSE)
 library(rvest)
 library(tidyr)
 library(readr)
+library(usethis)
 
 page <- read_html("https://www.ssa.gov/oact/babynames/numberUSbirths.html")
 
@@ -17,7 +18,8 @@ ssa$F <- parse_number(ssa$F)
 applicants <- ssa %>%
   gather(sex, n_all, M:F) %>%
   arrange(year, sex) %>%
-  mutate(n_all = as.integer(n_all))
+  mutate(n_all = as.integer(n_all)) %>%
+  arrange(year, sex)
 
 write_csv(applicants, "data-raw/applicants.csv")
-devtools::use_data(applicants, overwrite = TRUE)
+usethis::use_data(applicants, overwrite = TRUE)

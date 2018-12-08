@@ -5,7 +5,7 @@
 
 This package contains three datasets provided by the USA social security administration:
 
-* `babynames`: For each year from 1880 to 2015, the number of children of 
+* `babynames`: For each year from 1880 to 2017, the number of children of 
   each sex given each name. All names with more than 5 uses are given.
   (Source: http://www.ssa.gov/oact/babynames/limits.html)
 
@@ -18,7 +18,7 @@ This package contains three datasets provided by the USA social security adminis
 
 It also includes the following data set from the US Census:
 
-* `births`: Number of live births by year, up to 2015.
+* `births`: Number of live births by year, up to 2017.
   (Source: an Excel spreadsheet from the Census that has since been removed
   from their website and https://www.cdc.gov/nchs/data/nvsr/nvsr66/nvsr66_01.pdf)
 

@@ -1,8 +1,14 @@
 library(tidyverse)
+library(readxl)
+library(usethis)
 
 # 1909 - 2001
-# Source: www.census.gov/statab/hist/02HS0013.xls
-raw <- read_excel('data-raw/02HS0013.xls',
+# Source: https://www2.census.gov/library/publications/2004/compendia/statab/123ed/hist/02HS0013.xls
+if (!file.exists("data-raw/02HS0013.xls")) {
+  download.file("https://www2.census.gov/library/publications/2004/compendia/statab/123ed/hist/02HS0013.xls", "data-raw/02HS0013.xls")
+}
+
+raw <- readxl::read_excel('data-raw/02HS0013.xls',
   range = "A16:B117",
   col_names = FALSE,
   na = "(NA)"
@@ -17,7 +23,8 @@ births <- raw %>%
 # http://www.cdc.gov/nchs/data/nvsr/nvsr62/nvsr62_09.pdf, page 50 (Table 21)
 # 2002 - 2015 manually extracted from
 # https://www.cdc.gov/nchs/data/nvsr/nvsr66/nvsr66_01.pdf
-
+# 2016 - 2017 manually extracted from
+# https://www.cdc.gov/nchs/data/nvsr/nvsr67/nvsr67_08-508.pdf, page 12 (Table 1)
 recent <- tribble(
   ~year, ~births,
   2002,  4021726,
@@ -33,7 +40,9 @@ recent <- tribble(
   2012,  3952841,
   2013,  3932181,
   2014,  3988076,
-  2015,  3978497
+  2015,  3978497,
+  2016,  3945875,
+  2017,  3855500
 )
 
 births <- births %>%
@@ -41,7 +50,8 @@ births <- births %>%
   mutate(
     year = as.integer(year),
     births = as.integer(births)
-  )
+  ) %>%
+  arrange(year)
 
 write_csv(births, "data-raw/births.csv")
-devtools::use_data(births, overwrite = TRUE, compress = 'xz')
+usethis::use_data(births, overwrite = TRUE, compress = 'xz')

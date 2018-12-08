@@ -31,3 +31,7 @@ install.packages("babynames")
 # Install the development version from GitHub
 devtools::install_github("hadley/babynames")
 ```
+
+-----
+
+Please note that the 'babynames' project is released with a [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.

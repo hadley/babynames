@@ -1,0 +1,287 @@
+---
+title: "How to Tell Someone's Age When All You Know Is Her Name"
+author: "Emily Kothe"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    keep_md: yes
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+knitr::opts_chunk$set(fig.width=6, fig.height=6) 
+
+library(ggplot2)
+library(matrixStats)
+library(dplyr)
+library(babynames)
+library(stringr)
+library(lubridate)
+library(Hmisc)
+
+lifetables_us <- babynames::lifetables
+```
+
+This vignette is based on this FiveThirtyEight article 
+[How to Tell Someone’s Age When All You Know Is Her Name](https://fivethirtyeight.com/features/how-to-tell-someones-age-when-all-you-know-is-her-name/#fn-1). 
+That article demonstrated how you could use actuarial life tables and a database 
+of baby names to estimate the age of living Americans with a given name.^[Like 
+FiveThirtyEight we assume that people of the same sex die at the same rate 
+regardless of their name - in practice will vary by a number of factors related 
+to both name and life expectancy such as ethnicity. Because US lifetables are 
+calculated in 10 year intervals we have interpolated values for death rates 
+between intervals].
+
+## Joseph
+
+Like fivethirtyeight we start be examining the boys name "Joseph".
+
+We filter the SSA name data to only include boys named Joseph and join it with 
+the actuarial life table. Using linear interpolation and the life table 
+data we estimate the proportion of Josephs born in any given year that are still 
+alive today. 
+
+```{r message=FALSE, warning = FALSE}
+name_of_interest <- "Joseph"
+sex_of_interest <- "M"
+
+df <- lifetables_us %>% 
+  filter(x == (lubridate::year(Sys.Date()) - year)) %>% 
+  mutate(prop_still_alive = lx/100000) %>% 
+  right_join(filter(babynames, 
+                    name == name_of_interest, 
+                    sex == sex_of_interest), 
+             by= c("year", "sex")) %>% 
+  mutate(prop_still_alive = case_when(
+    year < 1900 ~ 0,  # The lifetables begin in 1910 but name data begins in 1900. 
+                      # We assume no 118 year olds are still alive
+    year == 2015 ~ 1, # For interpolation assume 100% of people from the last 
+                      # year of the lifetable are still alive
+    TRUE ~ prop_still_alive), 
+  Name = case_when(
+    is.na(name) ~ name_of_interest, 
+    TRUE ~ name), 
+  Count = case_when(
+    is.na(n) ~ 0, 
+    TRUE ~ as.numeric(n)), 
+  interp = zoo::na.approx(prop_still_alive, 
+                          na.rm = FALSE),
+  alive_count = Count * interp)
+
+med_age <- df %>% 
+  summarise(wted_median = weightedMedian(x, 
+                                         w = alive_count, 
+                                         na.rm = TRUE))
+peak <- df %>% 
+  filter(n == max(df$Count))
+
+```
+
+We can then generate the plot below which shows the number of Josephs born each 
+year and the number still estimated to be alive today. 
+
+```{r}
+ggplot(data = df, aes(x = year)) +
+  geom_line(aes(y = Count), size = 1)+
+  geom_col(aes(y = alive_count), fill="cornflowerblue") +
+  geom_vline(data = peak, xintercept = peak$year, size = 1, linetype = 2)+
+  scale_x_continuous(limits = c(1900, 2016)) +
+  coord_cartesian(expand = FALSE) +
+  theme_classic() + 
+  labs(title = "Age Distribution of American Boys Named Joseph", 
+       caption = "Source: Social Security Adminstration")
+```
+
+As we can see, `r name_of_interest` peaked in `r peak$year` when `r peak$n` 
+`r name_of_interest`s were born. Based on the actuarial data, 
+25583 `r name_of_interest`'s from `r peak$year` 
+would still be alive in `r lubridate::year(Sys.Date())`. Overall, 
+`r round(sum(df$alive_count, na.rm=TRUE)/sum(df$n, na.rm=TRUE)*100,0)`% of 
+`r name_of_interest`s born between 1900 and 2017 would still be alive in 
+`r lubridate::year(Sys.Date())`. The median age of an `r name_of_interest` 
+still alive, would be `r round(med_age$wted_median, 0)` years.
+
+
+## Brittany
+
+Because the name Joseph has been enduringly popular, we can't make strong 
+inferences about a person's age if all we know is that they are named Joseph. 
+On the other hand, we can make much more confident guesses about a woman's age 
+if we know she is named Brittany. 
+ 
+```{r message=FALSE, warning = FALSE, echo=FALSE}
+name_of_interest <- "Brittany"
+sex_of_interest <- "F"
+
+df <- lifetables_us %>% 
+  filter(x == (lubridate::year(Sys.Date()) - year)) %>% 
+  mutate(prop_still_alive = lx/100000) %>% 
+  right_join(filter(babynames, 
+                    name == name_of_interest, 
+                    sex == sex_of_interest), 
+             by= c("year", "sex")) %>% 
+  mutate(prop_still_alive = case_when(
+    year < 1900 ~ 0, 
+    year == 2015 ~ 1,
+    TRUE ~ prop_still_alive), 
+  Name = case_when(
+    is.na(name) ~ name_of_interest, 
+    TRUE ~ name), 
+  Count = case_when(
+    is.na(n) ~ 0, 
+    TRUE ~ as.numeric(n)), 
+  interp = zoo::na.approx(prop_still_alive, 
+                          na.rm = FALSE),
+  alive_count = Count * interp)
+
+med_age <- df %>% 
+  summarise(wted_median = weightedMedian(x, 
+                                         w = alive_count, 
+                                         na.rm = TRUE))
+peak <- df %>% 
+  filter(n == max(df$Count))
+
+ggplot(data = df, aes(x = year)) +
+  geom_line(aes(y = Count), size = 1)+
+  geom_col(aes(y = alive_count), fill="cornflowerblue") +
+  geom_vline(data = peak, xintercept = peak$year, size = 1, linetype = 2)+
+  scale_x_continuous(limits = c(1900, 2016)) +
+  coord_cartesian(expand = FALSE) +
+  theme_classic() + 
+  labs(title = "Age Distribution of American Girls Named Brittany", 
+       caption = "Source: Social Security Adminstration")
+```
+
+`r name_of_interest` peaked in `r peak$year` when `r max(df$n)` 
+`r name_of_interest`s were born. Based on the actuarial data, 
+37100 `r name_of_interest`'s from `r peak$year` 
+would still be alive in `r lubridate::year(Sys.Date())`. Overall, 
+`r round(sum(df$alive_count, na.rm=TRUE)/sum(df$n, na.rm=TRUE)*100,0)`% of 
+`r name_of_interest`s born between 1900 and 2017 would still be alive in 
+`r lubridate::year(Sys.Date())`. The median age of an `r name_of_interest` 
+still alive, would be `r round(med_age$wted_median, 0)` years.
+
+
+## Unisex Names 
+
+It's also interesting to look at names that have become unisex over time. Here 
+we use Harper as an example.
+
+```{r message=FALSE, warning = FALSE, echo=FALSE}
+name_of_interest <- "Harper"
+sex_of_interest <- "F"
+
+df <- lifetables_us %>% 
+  filter(x == (lubridate::year(Sys.Date()) - year)) %>% 
+  mutate(prop_still_alive = lx/100000) %>% 
+  right_join(filter(babynames, 
+                    name == name_of_interest, 
+                    sex == sex_of_interest), 
+             by= c("year", "sex")) %>% 
+  mutate(prop_still_alive = case_when(
+    year < 1900 ~ 0, 
+    year == 2015 ~ 1,
+    TRUE ~ prop_still_alive), 
+  Name = case_when(
+    is.na(name) ~ name_of_interest, 
+    TRUE ~ name), 
+  Count = case_when(
+    is.na(n) ~ 0, 
+    TRUE ~ as.numeric(n)), 
+  interp = zoo::na.approx(prop_still_alive, 
+                          na.rm = FALSE),
+  alive_count = Count * interp)
+
+med_age <- df %>% 
+  summarise(wted_median = weightedMedian(x, 
+                                         w = alive_count, 
+                                         na.rm = TRUE))
+peak <- df %>% 
+  filter(n == max(df$Count))
+
+ggplot(data = df, aes(x = year)) +
+  geom_line(aes(y = Count), size = 1)+
+  geom_col(aes(y = alive_count), fill="cornflowerblue") +
+  geom_vline(data = peak, xintercept = peak$year, size = 1, linetype = 2)+
+  scale_x_continuous(limits = c(1900, 2016)) +
+  coord_cartesian(expand = FALSE) +
+  theme_classic() + 
+  labs(title = "Age Distribution of American Girls Named Harper", 
+       caption = "Source: Social Security Adminstration")
+```
+
+For girls, `r name_of_interest` peaked in `r peak$year` when `r max(df$n)` 
+`r name_of_interest`s were born. Based on the actuarial data, 
+10241 female `r name_of_interest`'s from `r peak$year` 
+would still be alive in `r lubridate::year(Sys.Date())`. Overall, 
+`r round(sum(df$alive_count, na.rm=TRUE)/sum(df$n, na.rm=TRUE)*100,0)`% of a girl 
+named `r name_of_interest` born between 1900 and 2017 would still be alive in 
+`r lubridate::year(Sys.Date())`. The median age of a girl named 
+`r name_of_interest` still alive, would be `r round(med_age$wted_median, 0)` years.
+
+```{r message=FALSE, warning = FALSE, echo=FALSE}
+name_of_interest <- "Harper"
+sex_of_interest <- "M"
+
+df <- lifetables_us %>% 
+  filter(x == (lubridate::year(Sys.Date()) - year)) %>% 
+  mutate(prop_still_alive = lx/100000) %>% 
+  right_join(filter(babynames, 
+                    name == name_of_interest, 
+                    sex == sex_of_interest), 
+             by= c("year", "sex")) %>% 
+  mutate(prop_still_alive = case_when(
+    year < 1900 ~ 0, 
+    year == 2015 ~ 1,
+    TRUE ~ prop_still_alive), 
+  Name = case_when(
+    is.na(name) ~ name_of_interest, 
+    TRUE ~ name), 
+  Count = case_when(
+    is.na(n) ~ 0, 
+    TRUE ~ as.numeric(n)), 
+  interp = zoo::na.approx(prop_still_alive, 
+                          na.rm = FALSE),
+  alive_count = Count * interp)
+
+med_age <- df %>% 
+  summarise(wted_median = weightedMedian(x, 
+                                         w = alive_count, 
+                                         na.rm = TRUE))
+peak <- df %>% 
+  filter(n == max(df$Count))
+
+ggplot(data = df, aes(x = year)) +
+  geom_line(aes(y = Count), size = 1)+
+  geom_col(aes(y = alive_count), fill="cornflowerblue") +
+  geom_vline(data = peak, xintercept = peak$year, size = 1, linetype = 2)+
+  scale_x_continuous(limits = c(1900, 2016)) +
+  coord_cartesian(expand = FALSE) +
+  theme_classic() + 
+  labs(title = "Age Distribution of American Boys Named Harper", 
+       caption = "Source: Social Security Adminstration")
+```
+
+For boys, `r name_of_interest` peaked in `r peak$year` when `r max(df$n)` 
+`r name_of_interest`s were born. Based on the actuarial data, 
+414 male `r name_of_interest`'s from `r peak$year` 
+would still be alive in `r lubridate::year(Sys.Date())`. Overall, 
+`r round(sum(df$alive_count, na.rm=TRUE)/sum(df$n, na.rm=TRUE)*100,0)`% of a boy 
+named `r name_of_interest` born between 1900 and 2017 would still be alive in 
+`r lubridate::year(Sys.Date())`. The median age of a boy named 
+`r name_of_interest` still alive, would be `r round(med_age$wted_median, 0)` years.
+
+While the median age of Harpers is reasonably similar for both boys and girls
+it's interesting to note that Harper only emerged as a girls name relatively 
+recently. As such, if you know that someone is named Harper and born in 1955
+you may feel confident guessing that they are more likely to be male than female.
+^[Or rather more likely to be assigned male at birth] Whereas given the
+relatively popularity of the names in recent years, a younger Harper is 
+more likely to be female.^[Assigned female at birth]

@@ -17,4 +17,7 @@ URL: http://github.com/hadley/babynames
 BugReports: https://github.com/hadley/babynames/issues
 RoxygenNote: 6.1.1
 Suggests: 
-    testthat (>= 2.0.0)
+    testthat (>= 2.0.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

@@ -1,0 +1,12 @@
+destination: docs
+
+reference:
+- title: US baby names
+  contents:
+  - babynames
+
+- title: Supplemental data
+  contents:
+  - applicants
+  - births
+  - lifetables

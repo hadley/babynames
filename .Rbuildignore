@@ -1,3 +1,6 @@
+^pkgdown$
+^_pkgdown\.yml$
+^docs$
 ^CRAN-RELEASE$
 ^\.github$
 ^.*\.Rproj$

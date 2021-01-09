@@ -10,13 +10,13 @@ if (!file.exists("data-raw/02HS0013.xls")) {
 
 raw <- readxl::read_excel('data-raw/02HS0013.xls',
   range = "A16:B117",
-  col_names = FALSE,
+  col_names = c('year_raw', 'births_raw'),
   na = "(NA)"
 )
 births <- raw %>%
   transmute(
-    year = parse_integer(X__1),
-    births = X__2 * 1e3) %>%
+    year = parse_integer(year_raw),
+    births = births_raw * 1e3) %>%
   filter(!is.na(births))
 
 # 2002 - 2012 Manually extracted from

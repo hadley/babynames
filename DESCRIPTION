@@ -13,6 +13,7 @@ Imports:
     tibble
 License: CC0
 LazyData: true
+LazyDataCompression: xz
 URL: http://github.com/hadley/babynames
 BugReports: https://github.com/hadley/babynames/issues
 RoxygenNote: 6.1.1

@@ -4,7 +4,8 @@
 \name{lifetables}
 \alias{lifetables}
 \title{Lifetables}
-\format{A data frame with nine variables:
+\format{
+A data frame with nine variables:
 \describe{
 \item{\code{x}}{age in years}
 \item{\code{qx}}{probability of death at age \code{x}}
@@ -17,7 +18,8 @@
 \item{\code{year}}{Year}
 }
 
-For further details, see \url{http://www.ssa.gov/oact/NOTES/as120/LifeTables_Body.html#wp1168594}}
+For further details, see \url{http://www.ssa.gov/oact/NOTES/as120/LifeTables_Body.html#wp1168594}
+}
 \usage{
 lifetables
 }

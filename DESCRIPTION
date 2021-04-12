@@ -16,6 +16,6 @@ LazyData: true
 LazyDataCompression: xz
 URL: http://github.com/hadley/babynames
 BugReports: https://github.com/hadley/babynames/issues
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 2.0.0)

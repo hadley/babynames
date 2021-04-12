@@ -4,10 +4,12 @@
 \name{births}
 \alias{births}
 \title{Births}
-\format{A data frame:
+\format{
+A data frame:
 \describe{
 \item{year}{Year}
-\item{births}{Number of live births, rounded to nearest 1000}}}
+\item{births}{Number of live births, rounded to nearest 1000}}
+}
 \usage{
 births
 }

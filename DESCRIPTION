@@ -1,6 +1,6 @@
 Package: babynames
 Title: US Baby Names 1880-2017
-Version: 1.0.0.9000
+Version: 1.0.1
 Authors@R: 
     c(person(given = "Hadley",
              family = "Wickham",

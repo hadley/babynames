@@ -1,4 +1,4 @@
-# babynames (development version)
+# babynames 1.0.1
 
 * Fix for R CMD check change
 

@@ -9,3 +9,4 @@
 ^cran-comments\.md$
 ^\.travis\.yml$
 ^revdep$
+^CODE_OF_CONDUCT\.md$

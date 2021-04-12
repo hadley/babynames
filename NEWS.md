@@ -1,5 +1,7 @@
 # babynames (development version)
 
+* Fix for R CMD check change
+
 # babynames 1.0.0
 
 * Add data validity/regression tests (@russellpierce, #27)

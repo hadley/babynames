@@ -1,3 +1,9 @@
+# babynames 1.1.1
+
+* Updated data up to and including 2020
+* Removed depreciated code in `data-raw` scripts
+* Minor updates to old data caused by re-running `data-raw` scripts
+
 # babynames 1.0.1
 
 * Fix for R CMD check change

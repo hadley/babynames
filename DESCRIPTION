@@ -26,7 +26,6 @@ Imports:
     tibble
 Suggests: 
     testthat (>= 3.0.0)
-    devtools
 Encoding: UTF-8
 LazyData: true
 LazyDataCompression: xz

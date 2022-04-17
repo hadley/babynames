@@ -8,12 +8,13 @@ library(usethis)
 
 page <- read_html("https://www.ssa.gov/oact/babynames/numberUSbirths.html")
 
-ssa <- page %>% html_nodes("table") %>% .[[2]] %>% html_table() %>% tbl_df()
+
+ssa <- page %>% html_nodes("table") %>% .[[1]] %>% html_table() %>% tibble::as_tibble()
 names(ssa) <- c("year", "M", "F", "total")
 ssa$total <- NULL
 
-ssa$M <- parse_number(ssa$M)
-ssa$F <- parse_number(ssa$F)
+ssa$M <- readr::parse_number(ssa$M)
+ssa$F <- readr::parse_number(ssa$F)
 
 applicants <- ssa %>%
   gather(sex, n_all, M:F) %>%

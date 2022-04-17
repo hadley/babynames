@@ -4,3 +4,6 @@ docs/
 .RData
 *.xls
 docs
+
+## get rid of check log
+..Rcheck/

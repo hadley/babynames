@@ -21,8 +21,8 @@ get_lifetables <- function(year){
   dat
 }
 
-years <- seq(1900, 2017, by = 10)
-lifetables <- tbl_df(bind_rows(lapply(years, get_lifetables))) %>%
+years <- seq(1900, 2020, by = 10)
+lifetables <- tibble::as_tibble(bind_rows(lapply(years, get_lifetables))) %>%
   arrange(year, sex, x)
 readr::write_csv(lifetables[1:nrow(lifetables) %% 100 == 0,], "data-raw/lifetables_sample.csv")
 usethis::use_data(lifetables, compress = "xz", overwrite = T)

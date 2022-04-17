@@ -51,5 +51,5 @@ NULL
 #' @format A data frame:
 #' \describe{
 #' \item{year}{Year}
-#' \item{births}{Number of live births, rounded to nearest 1000}}
+#' \item{births}{Number of live births, rounded to nearest 1000 for all years prior to 1959}}
 "births"

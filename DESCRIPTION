@@ -1,13 +1,20 @@
 Package: babynames
-Title: US Baby Names 1880-2017
-Version: 1.0.1
+Title: US Baby Names 1880-2020
+Version: 1.1.1
 Authors@R: 
     c(person(given = "Hadley",
              family = "Wickham",
              role = c("aut", "cre"),
              email = "hadley@rstudio.com"),
       person(given = "RStudio",
-             role = "cph"))
+             role = "cph"),
+      person(
+        given = "Francis", 
+        middle = "Robert",
+        family = "Kovacs",
+        role = c("ctb"),
+        email = "frankkovacs8@gmail.com"
+      ))
 Description: US baby names provided by the SSA. This package contains all
     names used for at least 5 children of either sex.
 License: CC0
@@ -19,8 +26,9 @@ Imports:
     tibble
 Suggests: 
     testthat (>= 3.0.0)
+    devtools
 Encoding: UTF-8
 LazyData: true
 LazyDataCompression: xz
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Config/testthat/edition: 3
